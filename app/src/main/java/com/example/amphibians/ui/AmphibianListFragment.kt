@@ -33,16 +33,16 @@ class AmphibianListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentAmphibianListBinding.inflate(inflater)
-        // TODO: call the view model method that calls the amphibians api
+        viewModel.getAmphibianList()
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.recyclerView.adapter = AmphibianListAdapter(AmphibianListener { amphibian ->
+        binding.recyclerView.adapter = AmphibianListAdapter { amphibian ->
             viewModel.onAmphibianClicked(amphibian)
             findNavController()
                 .navigate(R.id.action_amphibianListFragment_to_amphibianDetailFragment)
-        })
+        }
 
         // Inflate the layout for this fragment
         return binding.root
